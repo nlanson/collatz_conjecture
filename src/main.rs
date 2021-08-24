@@ -18,11 +18,35 @@ struct Sequence {
 }
 
 impl Sequence {
-    pub fn new(start: u64) -> Self {
+    //Return new Sequence instance
+    pub fn new(start: u64) -> Self {     
         Self {
             start,
             coords: Vec::new()
         }
+    }
+
+    //Do the conjecture loops and save the results into self.coords.
+    //Return how many loops were done.
+    pub fn do_loops(&mut self) -> u64 {
+        self.coords.push(Coord::new(0, self.start));
+
+        let mut count: u64 = 1;
+        loop {
+            if self.coords[(count-1) as usize].y % 2 == 0 {
+                self.even(count, self.coords[(count-1) as usize].y);
+            } else {
+                self.odd(count, self.coords[(count-1) as usize].y);
+            }
+
+            if self.coords[count as usize].y == 1 {
+                break;
+            }
+
+            count += 1;
+        }
+
+        count
     }
 
     pub fn odd(&mut self, x: u64, y: u64) {
@@ -80,22 +104,7 @@ fn main() {
     }
 
     let mut sequence: Sequence = Sequence::new(start_int);
-    sequence.coords.push(Coord::new(0, start_int));
-
-    let mut count: u64 = 1;
-    loop {
-        if sequence.coords[(count-1) as usize].y % 2 == 0 {
-            sequence.even(count, sequence.coords[(count-1) as usize].y);
-        } else {
-            sequence.odd(count, sequence.coords[(count-1) as usize].y);
-        }
-
-        if sequence.coords[count as usize].y == 1 {
-            break;
-        }
-
-        count += 1;
-    }
+    let count: u64 = sequence.do_loops();
 
     println!("Reached the 4, 2, 1 loop in {} loops", count);
     match plot(sequence) { _=>{}};
