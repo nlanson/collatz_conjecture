@@ -1,2 +1,2 @@
 # ts-test
-The simple testing library
+The simple testing library for typescript code.
