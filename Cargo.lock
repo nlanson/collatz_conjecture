@@ -3,14 +3,6 @@
 version = 3
 
 [[package]]
-name = "ThreeExPlusOne"
-version = "0.1.0"
-dependencies = [
- "plotters",
- "text_io",
-]
-
-[[package]]
 name = "adler32"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -78,6 +70,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "eb6210b637171dfba4cda12e579ac6dc73f5165ad56133e5d72ef3131f320855"
 dependencies = [
  "cc",
+]
+
+[[package]]
+name = "collatz_conjecture"
+version = "0.1.0"
+dependencies = [
+ "plotters",
+ "text_io",
 ]
 
 [[package]]

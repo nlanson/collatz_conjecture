@@ -98,21 +98,23 @@ fn main() {
     }
 
     println!("Reached the 4, 2, 1 loop in {} loops", count);
-    plot(sequence);
+    match plot(sequence) { _=>{}};
     return;
 }
 
-//Takes in a vector of coords and saves out a plot graph of those coordinates
+//Takes in a a sequence and outputs a plot image.
+//Currently only takes in one sequence. Could later make it take in a vector of 
+//sequences to compare conjectures.
 fn plot(sequence: Sequence) -> Result<(), Box<dyn std::error::Error>> {
     let coords: Vec<(u64, u64)> = Coord::to_tuple_vec(&sequence.coords);
     let start_int: u64 = sequence.start;
     
     //Setup plot
     let root = BitMapBackend::new("./out.png", (640, 480)).into_drawing_area();
-    root.fill(&WHITE);
+    root.fill(&WHITE)?;
     let root = root.margin(10, 10, 10, 10);
     let mut chart = ChartBuilder::on(&root)
-        .caption(format!("3x+1 problem. Starting at {}", start_int), ("sans-serif", 40).into_font())
+        .caption(format!("Collatz conjecture (From {})", start_int), ("sans-serif", 40).into_font())
         .x_label_area_size(20)
         .y_label_area_size(40)
         .build_cartesian_2d(0u64..coords.len() as u64, 0u64..Coord::find_highest_in_tuple_vec(&coords))?;
