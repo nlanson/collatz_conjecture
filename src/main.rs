@@ -107,8 +107,14 @@ fn main() {
     let count: u64 = sequence.do_loops();
 
     println!("Reached the 4, 2, 1 loop in {} loops", count);
-    match plot(sequence) { _=>{}};
-    return;
+    match plot(sequence) { 
+        Ok(()) => {
+            return;
+        },
+        Err(err) => {
+            panic!("Err when creating plots: {}", err);
+        }
+    };
 }
 
 //Takes in a a sequence and outputs a plot image.
